@@ -91,10 +91,7 @@ export default function Services() {
           ))}
         </div>
 
-        <p className="mt-8 text-sm text-charcoal/70">
-          Cleaning fees are paid by guests. Commission is calculated on your
-          payout after platform fees.
-        </p>
+        
       </div>
     </section>
   );
