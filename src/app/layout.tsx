@@ -7,8 +7,16 @@ const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.phumlastays.co.za"),
   title: `${site.name} | Airbnb Co-Hosting in ${site.serviceArea}`,
   description: "We manage your Airbnb so you earn more without the admin.",
+  openGraph: {
+    title: `${site.name} | Airbnb Co-Hosting in ${site.serviceArea}`,
+    description: "We manage your Airbnb so you earn more without the admin.",
+    siteName: site.name,
+    locale: "en_ZA",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
