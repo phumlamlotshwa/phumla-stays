@@ -1,4 +1,5 @@
 import { whatsappLink } from "@/lib/site";
+import Link from "next/link";
 
 export default function Contact() {
   return (
@@ -12,14 +13,22 @@ export default function Contact() {
           Send us a message with your property&apos;s area and size. We&apos;ll
           come back with a free, honest assessment of what it could earn.
         </p>
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-block rounded-full bg-white px-8 py-4 font-medium text-sage-dark transition-colors hover:bg-cream"
-        >
-          Get your free assessment
-        </a>
+               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link
+            href="/onboarding"
+            className="rounded-full bg-white px-8 py-4 font-medium text-sage-dark transition-colors hover:bg-cream"
+          >
+            Tell us about your property
+          </Link>
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-white/40 px-8 py-4 font-medium text-white transition-colors hover:bg-white/10"
+          >
+            WhatsApp us instead
+          </a>
+        </div>
       </div>
     </section>
   );

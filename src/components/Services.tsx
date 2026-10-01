@@ -1,4 +1,5 @@
 import { whatsappLink } from "@/lib/site";
+import Link from "next/link";
 
 const packages = [
   {
@@ -76,10 +77,8 @@ export default function Services() {
                 ))}
               </ul>
 
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                           <Link
+                href="/onboarding"
                 className={`mt-8 rounded-full px-6 py-3 text-center font-medium transition-colors ${
                   pkg.featured
                     ? "bg-sage-dark text-white hover:bg-charcoal"
@@ -87,7 +86,7 @@ export default function Services() {
                 }`}
               >
                 Get started
-              </a>
+              </Link>
             </div>
           ))}
         </div>
