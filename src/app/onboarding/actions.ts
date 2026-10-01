@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { notifyNewOwnerLead } from "@/lib/notify";
 
 const propertyTypes = ["apartment", "house", "townhouse", "cottage", "guesthouse", "other"] as const;
 const serviceOptions = ["full_management", "listing_and_guest_care", "not_sure"] as const;
@@ -92,6 +93,7 @@ export async function submitOwnerLead(
       values,
     };
   }
+    await notifyNewOwnerLead(data);
 
   return { success: true };
 }
