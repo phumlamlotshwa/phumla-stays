@@ -1,5 +1,10 @@
+import Header from "@/components/Header";
+
+
 export default function Home() {
   return (
+    <>
+    <Header />
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 px-4 text-center">
       <div className="h-1 w-12 rounded-full bg-gold" />
       <h1 className="font-serif text-5xl">Phumla Stays</h1>
@@ -13,5 +18,6 @@ export default function Home() {
         Get a free listing assessment
       </a>
     </main>
+    </>
   );
 }
