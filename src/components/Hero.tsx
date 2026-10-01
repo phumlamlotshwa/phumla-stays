@@ -1,4 +1,4 @@
-import { whatsappLink } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 
 const included = [
   "Listing setup and photos",
@@ -14,7 +14,7 @@ export default function Hero() {
       <div>
         <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
         <p className="mb-3 text-sm font-medium uppercase tracking-widest text-sage-dark">
-          Airbnb co-hosting in Johannesburg
+          Airbnb co-hosting in {site.serviceArea}
         </p>
         <h1 className="font-serif text-4xl leading-tight md:text-6xl">
           Your property earns.
