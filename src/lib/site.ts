@@ -8,3 +8,9 @@ export const site = {
 export const whatsappLink = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
   site.whatsappMessage
 )}`;
+
+export const navLinks = [
+  { href: "#services", label: "Services" },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#faq", label: "FAQ" },
+];

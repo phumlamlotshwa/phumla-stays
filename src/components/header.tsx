@@ -1,11 +1,6 @@
 import Link from "next/link";
-import { site, whatsappLink } from "@/lib/site";
-
-const links = [
-  { href: "#services", label: "Services" },
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#faq", label: "FAQ" },
-];
+import { navLinks, site, whatsappLink } from "@/lib/site";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function Header() {
   return (
@@ -16,7 +11,7 @@ export default function Header() {
         </Link>
 
         <nav className="hidden gap-8 text-sm md:flex">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -26,14 +21,18 @@ export default function Header() {
             </a>
           ))}
         </nav>
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full bg-sage-dark px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-charcoal"
-        >
-          WhatsApp us
-        </a>
+
+        <div className="flex items-center gap-3">
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-sage-dark px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-charcoal"
+          >
+            WhatsApp us
+          </a>
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );
