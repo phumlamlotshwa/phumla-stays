@@ -17,7 +17,7 @@ export default function MeetPhumla() {
 
         <div>
           <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
-          <h2 className="font-serif text-3xl md:text-5xl">Hi, I&apos;m Phumla.</h2>
+          <h1 className="font-serif text-3xl md:text-5xl">Hi, I&apos;m Phumla.</h1>
           <div className="mt-6 space-y-4 text-lg text-charcoal/80">
             <p>
               I&apos;m a software developer, and I started

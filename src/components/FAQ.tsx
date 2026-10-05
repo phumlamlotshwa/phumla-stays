@@ -43,7 +43,7 @@ export default function FAQ() {
       <div className="mx-auto grid max-w-6xl gap-12 px-4 md:grid-cols-[1fr_2fr]">
         <div>
           <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
-          <h2 className="font-serif text-3xl md:text-5xl">Questions owners ask</h2>
+          <h1 className="font-serif text-3xl md:text-5xl">Questions owners ask</h1>
           <p className="mt-4 text-lg text-charcoal/80">
             Can&apos;t find your answer?{" "}
             <a
