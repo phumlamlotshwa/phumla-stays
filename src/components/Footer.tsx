@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import Link from "next/link";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -35,9 +36,17 @@ export default function Footer() {
             </span>
           </a>
         </div>
-        <p>
-          © {year} {site.name}. All rights reserved.
-        </p>
+                <div className="space-y-1 md:text-right">
+          <p>
+            © {year} {site.name}. All rights reserved. ·{" "}
+            <Link href="/privacy" className="underline underline-offset-4 hover:text-white">
+              Privacy Policy
+            </Link>
+          </p>
+          <p className="text-xs text-white/60">
+            Phumla Stays is an independent business and is not affiliated with Airbnb.
+          </p>
+        </div>
       </div>
     </footer>
   );

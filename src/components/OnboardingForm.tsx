@@ -195,8 +195,17 @@ export default function OnboardingForm() {
             defaultChecked={state.values?.popia_consent === "on"}
             className="mt-0.5 h-5 w-5 shrink-0 accent-sage-dark"
           />
-          I agree that Phumla Stays may use these details to contact me about
-          managing my property. My details won&apos;t be shared with anyone else.
+                   I agree that Phumla Stays may use these details to contact me about
+          managing my property, as described in the{" "}
+          <a
+            href="/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 hover:text-charcoal"
+          >
+            Privacy Policy
+          </a>
+          .
         </label>
         <FieldError messages={state.errors?.popia_consent} />
       </div>
