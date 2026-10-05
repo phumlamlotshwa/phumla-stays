@@ -1,15 +1,23 @@
 import Link from "next/link";
 import { navLinks, site, whatsappLink } from "@/lib/site";
 import MobileMenu from "@/components/MobileMenu";
+import Image from "next/image";
 
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-charcoal/10 bg-cream/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="font-serif text-xl">
+                <Link href="/" className="flex items-center gap-2 font-serif text-xl">
+          <Image
+            src="/logo-icon.svg"
+            alt=""
+            width={52}
+            height={34}
+            unoptimized
+            priority
+          />
           {site.name}
         </Link>
-
         <nav className="hidden gap-8 text-sm md:flex">
           {navLinks.map((link) => (
             <a

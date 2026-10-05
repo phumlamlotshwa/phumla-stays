@@ -29,9 +29,8 @@ export default function MeetPhumla() {
               to running your listing, from pricing and guest messages to a
               monthly report you can actually understand.
             </p>
-            <p>
-              When you work with Phumla Stays, you deal with me directly, not a
-              call centre.
+                       <p className="font-serif text-2xl text-charcoal">
+              You rest. I handle the rest.
             </p>
           </div>
           <a
