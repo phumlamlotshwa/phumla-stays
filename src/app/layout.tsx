@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -24,10 +25,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      
       <body
         className={`${fraunces.variable} ${inter.variable} font-sans bg-cream text-charcoal antialiased`}
       >
         {children}
+         <FloatingWhatsApp />
       </body>
     </html>
   );
