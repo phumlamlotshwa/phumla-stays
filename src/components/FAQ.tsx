@@ -3,7 +3,7 @@ import { site, whatsappLink } from "@/lib/site";
 const faqs = [
   {
     question: "Which areas do you cover?",
-    answer: `We currently manage properties across ${site.serviceArea}, from city apartments to holiday homes.`,
+    answer: `We cover properties across ${site.serviceArea}, from city apartments to holiday homes.`,
   },
   {
     question: "Who pays for cleaning?",
@@ -11,9 +11,14 @@ const faqs = [
       "Guests pay a cleaning fee with every booking, and that covers the cleaner. It doesn't come out of your earnings or our commission.",
   },
   {
+    question: "What other costs will I pay?",
+    answer:
+      "As the owner, you cover your property's running costs: utilities, Wi-Fi, levies, insurance and repairs, plus consumables like toiletries and coffee, which we buy and you reimburse monthly with receipts. Any repair over R1 500 needs your approval first, except in an emergency.",
+  },
+  {
     question: "How do I get paid?",
     answer:
-      "Airbnb pays you directly. Our commission is either split automatically through Airbnb or invoiced monthly, whichever you prefer.",
+      "Airbnb pays you directly. Our commission is split off automatically through Airbnb's co-host payouts, so there's nothing extra for you to pay. Where that isn't available, we invoice you monthly instead.",
   },
   {
     question: "What happens if a guest damages something?",
@@ -36,7 +41,6 @@ const faqs = [
       "Give us 30 days' written notice. There are no cancellation fees, and we'll hand everything back to you in good order.",
   },
 ];
-
 export default function FAQ() {
   return (
     <section id="faq" className="scroll-mt-20 bg-white py-20 md:py-28">
