@@ -32,14 +32,14 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <ol className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <ol className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {steps.map((step, index) => (
-            <li key={step.title} className="rounded-3xl bg-white p-8 ring-1 ring-charcoal/10">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sage-dark font-serif text-lg text-white">
+            <li key={step.title} className="border-t-2 border-sage-dark/20 pt-6">
+              <span className="font-serif text-4xl text-sage-dark">
                 {index + 1}
               </span>
-              <h3 className="mt-6 font-serif text-xl">{step.title}</h3>
-              <p className="mt-3 text-charcoal/80">{step.description}</p>
+              <h3 className="mt-3 font-serif text-xl">{step.title}</h3>
+              <p className="mt-2 text-charcoal/80">{step.description}</p>
             </li>
           ))}
         </ol>
