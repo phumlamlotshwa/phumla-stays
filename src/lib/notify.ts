@@ -43,7 +43,7 @@ export async function notifyNewOwnerLead(lead: OwnerLead) {
 
   try {
     const { error } = await resend.emails.send({
-      from: "Phumla Stays <onboarding@resend.dev>",
+      from: "Phumla Stays <alerts@phumlastays.co.za>",
       to: process.env.NOTIFY_EMAIL!,
       replyTo: lead.email,
       subject: `New property owner: ${lead.full_name} (${lead.bedrooms}-bed ${lead.property_type})`,
