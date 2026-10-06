@@ -5,7 +5,6 @@ export default function Contact() {
   return (
     <section id="contact" className="scroll-mt-20 bg-sage-dark py-20 text-white md:py-28">
       <div className="mx-auto max-w-3xl px-4 text-center">
-        <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-gold" />
                <h2 className="font-serif text-3xl md:text-5xl">
           Got a place in Gauteng or Mpumalanga? Let&apos;s chat.
         </h2>

@@ -46,7 +46,6 @@ export default function FAQ() {
     <section id="faq" className="scroll-mt-20 bg-white py-20 md:py-28">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 md:grid-cols-[1fr_2fr]">
         <div>
-          <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h1 className="font-serif text-3xl md:text-5xl">Questions owners ask</h1>
           <p className="mt-4 text-lg text-charcoal/80">
             Can&apos;t find your answer?{" "}

@@ -26,7 +26,6 @@ export default function HowItWorks() {
     <section id="how-it-works" className="scroll-mt-20 py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4">
         <div className="max-w-2xl">
-          <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h2 className="font-serif text-3xl md:text-5xl">How it works</h2>
                     <p className="mt-4 text-lg text-charcoal/80">
             Here&apos;s what happens after you message us.

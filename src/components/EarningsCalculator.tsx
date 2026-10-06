@@ -27,7 +27,6 @@ export default function EarningsCalculator() {
     <section id="calculator" className="scroll-mt-20 bg-sage/10 py-20 md:py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2">
         <div>
-          <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h2 className="font-serif text-3xl md:text-5xl">See what you&apos;d take home</h2>
                     <p className="mt-4 text-lg text-charcoal/80">
             Type in what Airbnb pays you in a normal month, and you&apos;ll see

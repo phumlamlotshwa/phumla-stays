@@ -14,7 +14,6 @@ export default function OnboardingPage() {
       <Header />
       <main className="mx-auto max-w-3xl px-4 py-16 md:py-24">
         <div className="mb-10">
-          <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h1 className="font-serif text-4xl md:text-5xl">Tell us about your property</h1>
           <p className="mt-4 text-lg text-charcoal/80">
             It takes about two minutes. We&apos;ll review your details and get

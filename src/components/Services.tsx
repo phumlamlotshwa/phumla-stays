@@ -37,7 +37,6 @@ export default function Services() {
     <section id="services" className="scroll-mt-20 bg-white py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4">
         <div className="max-w-2xl">
-          <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h2 className="font-serif text-3xl md:text-5xl">Choose how hands-off you want to be</h2>
           <p className="mt-4 text-lg text-charcoal/80">
             Two simple packages. No setup fees, no long contracts.
