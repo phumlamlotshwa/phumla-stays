@@ -36,7 +36,7 @@ export default function OnboardingForm() {
 
   return (
     <form
-     action={formAction} className="space-y-8 rounded-3xl bg-white p-8 ring-1 ring-charcoal/10">\
+     action={formAction} className="space-y-8 rounded-3xl bg-white p-8 ring-1 ring-charcoal/10">
            <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label htmlFor="company">Company</label>
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
