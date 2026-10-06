@@ -54,6 +54,11 @@ export async function submitOwnerLead(
     if (String(formData.get("company") ?? "").trim() !== "") {
     return { success: true };
   }
+   const elapsed = Number(formData.get("elapsed"));
+  if (!Number.isFinite(elapsed) || elapsed < 3000) {
+    return { success: true };
+  }
+
 
   const values: FormValues = {
     full_name: String(formData.get("full_name") ?? ""),

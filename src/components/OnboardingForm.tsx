@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef } from "react";
 import { submitOwnerLead, type FormState } from "@/app/onboarding/actions";
 
 const initialState: FormState = { success: false };
@@ -21,6 +21,12 @@ function FieldError({ messages }: { messages?: string[] }) {
 
 export default function OnboardingForm() {
   const [state, formAction, isPending] = useActionState(submitOwnerLead, initialState);
+    const startedAt = useRef(Date.now());
+
+  function handleSubmit(formData: FormData) {
+    formData.set("elapsed", String(Date.now() - startedAt.current));
+    return formAction(formData);
+  }
 
   if (state.success) {
     return (
@@ -36,7 +42,7 @@ export default function OnboardingForm() {
 
   return (
     <form
-     action={formAction} className="space-y-8 rounded-3xl bg-white p-8 ring-1 ring-charcoal/10">
+     action={handleSubmit} className="space-y-8 rounded-3xl bg-white p-8 ring-1 ring-charcoal/10">
            <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label htmlFor="company">Company</label>
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
