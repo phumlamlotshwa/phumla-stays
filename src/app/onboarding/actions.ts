@@ -79,6 +79,29 @@ export async function submitOwnerLead(
     return { success: false, errors: parsed.error.flatten().fieldErrors, values };
   }
   const data = parsed.data;
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
+  const [byEmail, byPhone] = await Promise.all([
+    supabaseAdmin
+      .from("owner_leads")
+      .select("id", { count: "exact", head: true })
+      .eq("email", data.email)
+      .gte("created_at", since),
+    supabaseAdmin
+      .from("owner_leads")
+      .select("id", { count: "exact", head: true })
+      .eq("phone", data.phone)
+      .gte("created_at", since),
+  ]);
+
+  if ((byEmail.count ?? 0) > 0 || (byPhone.count ?? 0) > 0) {
+    return {
+      success: false,
+      message:
+        "We've already received your details and will be in touch soon. If anything has changed, please WhatsApp us.",
+      values,
+    };
+  }
 
   const { error } = await supabaseAdmin.from("owner_leads").insert({
     full_name: data.full_name,
