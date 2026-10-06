@@ -3,7 +3,7 @@ import { site, whatsappLink } from "@/lib/site";
 const faqs = [
   {
     question: "Which areas do you cover?",
-    answer: `We cover properties across ${site.serviceArea}, from city apartments to holiday homes.`,
+    answer: `We cover ${site.serviceArea}. If your place is just outside these areas, WhatsApp us and we'll see what we can do.`,
   },
   {
     question: "Who pays for cleaning?",

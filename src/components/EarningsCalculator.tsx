@@ -29,9 +29,9 @@ export default function EarningsCalculator() {
         <div>
           <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h2 className="font-serif text-3xl md:text-5xl">See what you&apos;d take home</h2>
-          <p className="mt-4 text-lg text-charcoal/80">
-            Enter your average monthly Airbnb payout to see exactly what our fee
-            would be. No hidden costs, no surprises.
+                    <p className="mt-4 text-lg text-charcoal/80">
+            Type in what Airbnb pays you in a normal month, and you&apos;ll see
+            exactly what our fee would be before you sign anything.
           </p>
         </div>
 

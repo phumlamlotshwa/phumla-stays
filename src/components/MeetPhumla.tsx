@@ -19,15 +19,16 @@ export default function MeetPhumla() {
           <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h1 className="font-serif text-3xl md:text-5xl">Hi, I&apos;m Phumla.</h1>
           <div className="mt-6 space-y-4 text-lg text-charcoal/80">
-            <p>
-              I&apos;m a software developer, and I started
-              Phumla Stays to give property owners the kind of service I&apos;d
-              want for my own home: fast replies, clear systems, and no surprises.
+                       <p>
+              I&apos;m a software developer based in Johannesburg. I started
+              Phumla Stays because I&apos;d want my own place looked after
+              properly, with quick replies and a monthly report that actually
+              tells you what&apos;s going on.
             </p>
             <p>
-              I bring the same attention to detail I use when building software
-              to running your listing, from pricing and guest messages to a
-              monthly report you can actually understand.
+              My work is all about getting the small details right, and I run
+              every listing the same way. Your pricing, guest messages and
+              cleaning get checked properly, not rushed.
             </p>
                        <p className="font-serif text-2xl text-charcoal">
               You rest. I handle the rest.

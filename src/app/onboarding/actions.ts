@@ -51,6 +51,9 @@ export async function submitOwnerLead(
   _prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
+    if (String(formData.get("company") ?? "").trim() !== "") {
+    return { success: true };
+  }
 
   const values: FormValues = {
     full_name: String(formData.get("full_name") ?? ""),

@@ -28,8 +28,8 @@ export default function HowItWorks() {
         <div className="max-w-2xl">
           <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h2 className="font-serif text-3xl md:text-5xl">How it works</h2>
-          <p className="mt-4 text-lg text-charcoal/80">
-            From first message to first booking, we make it easy.
+                    <p className="mt-4 text-lg text-charcoal/80">
+            Here&apos;s what happens after you message us.
           </p>
         </div>
 

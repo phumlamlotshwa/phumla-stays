@@ -3,12 +3,12 @@ import { whatsappLink } from "@/lib/site";
 const regions = [
   {
     province: "Gauteng",
-    description: "City apartments and homes for business and weekend travellers.",
+    description: "Apartments and homes for people in town for work or a weekend away.",
     areas: ["Johannesburg", "Sandton", "Rosebank", "Fourways", "Midrand", "Pretoria", "Centurion"],
   },
   {
     province: "Mpumalanga",
-    description: "Holiday homes near Kruger, the Panorama Route and the Lowveld.",
+    description: "Holiday homes close to Kruger, the Panorama Route and the Lowveld towns.",
     areas: ["Mbombela", "White River", "Hazyview", "Sabie", "Graskop", "Dullstroom"],
   },
 ];
@@ -20,9 +20,9 @@ export default function Areas() {
         <div className="max-w-2xl">
           <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
           <h2 className="font-serif text-3xl md:text-5xl">Areas we cover</h2>
-          <p className="mt-4 text-lg text-charcoal/80">
-            From city apartments to bushveld getaways, we cover properties
-            across two provinces.
+                    <p className="mt-4 text-lg text-charcoal/80">
+            Apartments in Joburg and Pretoria, and holiday homes around Kruger
+            and the Panorama Route.
           </p>
         </div>
 
