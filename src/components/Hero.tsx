@@ -12,7 +12,16 @@ export default function Hero() {
   return (
     <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 md:grid-cols-2 md:py-28">
       <div>
-        <div className="mb-6 h-1 w-12 rounded-full bg-gold" />
+                <svg aria-hidden="true" viewBox="0 0 40 22" className="mb-6 h-6 w-11">
+          <path
+            d="M3 19 L20 6 L37 19"
+            fill="none"
+            stroke="#4F6B54"
+            strokeWidth={3}
+            strokeLinejoin="miter"
+          />
+          <rect x="17.5" y="12.5" width="5" height="5" rx="0.5" fill="#C9A227" />
+        </svg>
         <p className="mb-3 text-sm font-medium uppercase tracking-widest text-sage-dark">
           Airbnb co-hosting in {site.serviceArea}
         </p>

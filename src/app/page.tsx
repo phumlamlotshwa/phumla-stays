@@ -16,12 +16,12 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <RoofDivider />
         <Services />
         <EarningsCalculator />
         <HowItWorks />
-        <Areas/>
+        <Areas />
         <RoofDivider />
-
         <Contact />
       </main>
       <Footer />
