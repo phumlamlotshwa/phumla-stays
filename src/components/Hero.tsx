@@ -22,7 +22,7 @@ export default function Hero() {
           />
           <rect x="17.5" y="12.5" width="5" height="5" rx="0.5" fill="#C9A227" />
         </svg>
-        <p className="mb-3 text-sm font-medium uppercase tracking-widest text-sage-dark">
+                 <p className="mb-3 text-lg text-sage-dark">
           Airbnb co-hosting in {site.serviceArea}
         </p>
         <h1 className="font-serif text-4xl leading-tight md:text-6xl">
