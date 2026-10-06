@@ -10,7 +10,7 @@ const packages = [
     features: [
       "Listing setup, photos and description",
       "Smart nightly pricing",
-      "All guest messages and check-ins",
+      "All guest messages and check-in coordination",
       "Cleaning, laundry and restocking",
       "Reviews and problem-solving",
       "Monthly owner report",
@@ -87,11 +87,15 @@ export default function Services() {
                 Get started
               </Link>
             </div>
-          ))}
+                  ))}
         </div>
 
-        
+        <p className="mt-10 text-center text-lg text-charcoal/80">
+          Your first setup visit is on us. After that, we take care of the day-to-day,
+          so you can relax and enjoy the income.
+        </p>
       </div>
     </section>
   );
 }
+    

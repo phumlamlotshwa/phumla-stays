@@ -15,10 +15,10 @@ const faqs = [
     answer:
       "As the owner, you cover your property's running costs: utilities, Wi-Fi, levies, insurance and repairs, plus consumables like toiletries and coffee, which we buy and you reimburse monthly with receipts. Any repair over R1 500 needs your approval first, except in an emergency.",
   },
-    {
-    question: "Will I pay extra if you need to visit my property?",
+       {
+    question: "Do you come out to the property?",
     answer:
-      "Almost never. Pricing, bookings and guest messages are all handled online, and local cleaners take care of cleaning, laundry and key handovers, covered by the guest's cleaning fee. The only time there's an extra charge is if you ask us to come out in person, for example to meet a contractor or check on something for you: R350 per visit, plus travel beyond 30 km from Mbombela. We'll always confirm the cost with you first, so there are no surprises.",
+      "Yes. Your first setup visit is on us: we walk through your place, photograph it and get it guest-ready. After that, the day-to-day running is handled for you. If you ever need us on site for something extra, we'll agree on it with you upfront.",
   },
   {
     question: "How do I get paid?",
