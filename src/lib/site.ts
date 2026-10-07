@@ -1,6 +1,6 @@
 export const site = {
   name: "Phumla Stays",
-  serviceArea: "Gauteng & Mpumalanga",
+  serviceArea: "South Africa",
   email: "hello@phumlastays.co.za",
   whatsappNumber: "27794257826",
   whatsappMessage: "Hi Phumla Stays, I'd like a free listing assessment.",

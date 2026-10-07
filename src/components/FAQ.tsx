@@ -3,7 +3,7 @@ import { site, whatsappLink } from "@/lib/site";
 const faqs = [
   {
     question: "Which areas do you cover?",
-    answer: `We cover ${site.serviceArea}. If your place is just outside these areas, WhatsApp us and we'll see what we can do.`,
+        answer: "Anywhere in South Africa. We're based in Nelspruit, and because most of the work happens online, we can co-host your place wherever it is.",
   },
   {
     question: "Who pays for cleaning?",

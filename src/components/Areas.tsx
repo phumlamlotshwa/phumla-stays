@@ -2,14 +2,14 @@ import { whatsappLink } from "@/lib/site";
 
 const regions = [
   {
-    province: "Gauteng",
-    description: "Apartments and homes for people in town for work or a weekend away.",
-    areas: ["Johannesburg", "Sandton", "Rosebank", "Fourways", "Midrand", "Pretoria", "Centurion"],
+    province: "Mpumalanga",
+    description: "Our home base. Holiday homes close to Kruger, the Panorama Route and the Lowveld towns.",
+    areas: ["Mbombela", "White River", "Hazyview", "Sabie", "Graskop", "Dullstroom"],
   },
   {
-    province: "Mpumalanga",
-    description: "Holiday homes close to Kruger, the Panorama Route and the Lowveld towns.",
-    areas: ["Mbombela", "White River", "Hazyview", "Sabie", "Graskop", "Dullstroom"],
+    province: "Across South Africa",
+    description: "City apartments, coastal escapes and country getaways, managed wherever they are.",
+    areas: ["Johannesburg", "Pretoria", "Cape Town", "Durban", "Garden Route", "Drakensberg"],
   },
 ];
 
@@ -20,8 +20,7 @@ export default function Areas() {
         <div className="max-w-2xl">
           <h2 className="font-serif text-3xl md:text-5xl">Areas we cover</h2>
                     <p className="mt-4 text-lg text-charcoal/80">
-            Apartments in Joburg and Pretoria, and holiday homes around Kruger
-            and the Panorama Route.
+            Based in Nelspruit, co-hosting homes all over South Africa.
           </p>
         </div>
 
