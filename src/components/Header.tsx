@@ -40,7 +40,7 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center gap-2 font-serif text-xl">
+        <Link href="/" className="flex items-center gap-2 whitespace-nowrap font-serif text-xl">
           <Image
             src="/logo-icon.svg"
             alt=""
@@ -68,7 +68,7 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`hidden rounded-full px-4 py-2 text-sm font-medium transition-colors sm:inline-block ${
               clear
                 ? "bg-gold text-charcoal hover:bg-white"
                 : "bg-sage-dark text-white hover:bg-charcoal"
