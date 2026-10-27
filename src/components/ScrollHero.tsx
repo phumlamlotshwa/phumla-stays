@@ -12,6 +12,17 @@ const PLAY_SECONDS = 12;
 // 1 shows the whole width; higher zooms in and crops the sides a little.
 const PHONE_ZOOM = 1.5;
 
+// Start playing once this share of the frames is ready, or after MAX_WAIT_MS,
+// whichever comes first. A slow or stuck download must never stop the film
+// (and the buttons at the end of it) from showing.
+const START_WHEN_READY = 0.6;
+const MAX_WAIT_MS = 4000;
+
+// The frames are 1600px wide, so a canvas sharper or wider than this only
+// costs memory (a big 4K screen would otherwise get a 5120px canvas).
+const MAX_PIXEL_RATIO = 2;
+const MAX_CANVAS_WIDTH = 2400;
+
 function framePath(folder: "desktop" | "mobile", index: number) {
   const number = String(index + 1).padStart(3, "0");
   return `/hero-frames/${folder}/${number}.webp`;
@@ -31,21 +42,43 @@ export default function ScrollHero() {
 
     // phones get the smaller frames to save data
     const folder = window.innerWidth < 768 ? "mobile" : "desktop";
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     const frames: HTMLImageElement[] = [];
+    const ready: boolean[] = new Array(FRAME_COUNT).fill(false);
+    let readyCount = 0;
     let currentFrame = 0;
+    let drawnFrame = -1;
+    let started = false;
+    let disposed = false;
+    let animation = 0;
+    let waitTimer = 0;
+
+    // the closest frame at or before `index` that has finished downloading,
+    // so a missing frame holds the previous picture instead of going blank
+    function nearestReady(index: number) {
+      for (let i = index; i >= 0; i--) if (ready[i]) return i;
+      for (let i = index + 1; i < FRAME_COUNT; i++) if (ready[i]) return i;
+      return -1;
+    }
 
     // On wide screens the frame fills the canvas, cropping the edges if needed
     // (like object-fit: cover). On phones held upright that would blow up a thin
     // slice of the film, so instead the frame runs across the full width and a
     // blurred copy behind it fills the space above and below.
-    function draw(index: number) {
-      const image = frames[index];
-      if (!canvas || !context || !image?.complete || !image.naturalWidth)
-        return;
+    function draw(index: number, force = false) {
+      if (disposed || !canvas || !context) return;
+      const frame = nearestReady(index);
+      if (frame === -1 || (frame === drawnFrame && !force)) return;
 
+      const image = frames[frame];
       const imageWidth = image.naturalWidth;
       const imageHeight = image.naturalHeight;
       const { width, height } = canvas;
+      if (!imageWidth || !width || !height) return;
+      drawnFrame = frame;
 
       context.clearRect(0, 0, width, height);
       context.imageSmoothingQuality = "high";
@@ -58,7 +91,7 @@ export default function ScrollHero() {
         return;
       }
 
-      if (backdrop && backdropContext) {
+      if (backdrop && backdropContext && backdrop.width && backdrop.height) {
         const scale = Math.max(
           backdrop.width / imageWidth,
           backdrop.height / imageHeight,
@@ -92,82 +125,113 @@ export default function ScrollHero() {
       context.globalCompositeOperation = "source-over";
     }
 
-    // keeps the canvas sharp on high-resolution screens
+    // Keeps the canvas sharp on high-resolution screens. Setting a canvas size
+    // wipes it, so only do it when the size really changed (phones fire resize
+    // events all the time as the address bar slides in and out).
     function resize() {
       if (!canvas) return;
-      const ratio = window.devicePixelRatio || 1;
-      canvas.width = canvas.clientWidth * ratio;
-      canvas.height = canvas.clientHeight * ratio;
+      const ratio = Math.min(
+        window.devicePixelRatio || 1,
+        MAX_PIXEL_RATIO,
+        MAX_CANVAS_WIDTH / Math.max(canvas.clientWidth, 1),
+      );
+      const width = Math.round(canvas.clientWidth * ratio);
+      const height = Math.round(canvas.clientHeight * ratio);
+      if (width === canvas.width && height === canvas.height) return;
+
+      canvas.width = width;
+      canvas.height = height;
       if (backdrop) {
         // the backdrop is blurred anyway, so a small one is plenty
-        backdrop.width = Math.round(canvas.clientWidth / 4);
-        backdrop.height = Math.round(canvas.clientHeight / 4);
+        backdrop.width = Math.max(1, Math.round(canvas.clientWidth / 4));
+        backdrop.height = Math.max(1, Math.round(canvas.clientHeight / 4));
       }
-      draw(currentFrame);
+      draw(currentFrame, true);
     }
 
     // plays the film once, from the first frame to the last, then rests on
     // the final scene with the buttons
-    let animation = 0;
     function play() {
+      if (started || disposed) return;
+      started = true;
+      window.clearTimeout(waitTimer);
       let startTime: number | null = null;
+      let lastProgress = -1;
 
       function step(time: number) {
+        if (disposed) return;
         if (startTime === null) startTime = time;
-        const progress = Math.min(
-          (time - startTime) / (PLAY_SECONDS * 1000),
-          1,
-        );
-        const index = Math.round(progress * (FRAME_COUNT - 1));
-        setProgress(progress);
+        const value = Math.min((time - startTime) / (PLAY_SECONDS * 1000), 1);
 
-        if (index !== currentFrame) {
-          currentFrame = index;
-          draw(index);
+        // the words only need updating about every 1% of the film
+        const rounded = Math.round(value * 100) / 100;
+        if (rounded !== lastProgress) {
+          lastProgress = rounded;
+          setProgress(value);
         }
-        if (progress < 1) animation = requestAnimationFrame(step);
+
+        currentFrame = Math.round(value * (FRAME_COUNT - 1));
+        draw(currentFrame);
+        if (value < 1) animation = requestAnimationFrame(step);
       }
 
       animation = requestAnimationFrame(step);
     }
 
-    // people who've asked their phone or computer for less motion
-    // go straight to the last scene
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    // load every frame first so the film doesn't stutter, showing the
-    // first frame as soon as it arrives
-    let loaded = 0;
-    function frameReady(i: number) {
-      if (i === currentFrame) draw(i);
-      loaded++;
-      if (loaded < FRAME_COUNT) return;
-
-      if (reduceMotion) {
-        currentFrame = FRAME_COUNT - 1;
-        draw(currentFrame);
-        setProgress(1);
-      } else {
-        play();
-      }
+    // shows the last scene and its buttons without playing the film
+    function showEnding() {
+      if (disposed) return;
+      window.clearTimeout(waitTimer);
+      setProgress(1);
     }
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    function frameSettled(i: number, ok: boolean) {
+      if (disposed) return;
+      if (ok) {
+        ready[i] = true;
+        readyCount++;
+        // keep showing something sensible while the rest download
+        if (i === nearestReady(currentFrame)) draw(currentFrame);
+      }
+      if (reduceMotion) showEnding();
+      else if (readyCount >= FRAME_COUNT * START_WHEN_READY) play();
+    }
+
+    // decode() finishes the image work off the main thread before we draw,
+    // so the first run through the film doesn't stutter
+    function load(i: number) {
       const image = new Image();
-      image.onload = () => frameReady(i);
-      image.onerror = () => frameReady(i);
       image.src = framePath(folder, i);
-      frames.push(image);
+      frames[i] = image;
+      image.decode().then(
+        () => frameSettled(i, true),
+        () => frameSettled(i, false),
+      );
     }
 
     resize();
-    window.addEventListener("resize", resize);
+
+    if (reduceMotion) {
+      // people who've asked for less motion get the last scene straight away,
+      // and only download that one picture
+      currentFrame = FRAME_COUNT - 1;
+      load(currentFrame);
+      waitTimer = window.setTimeout(showEnding, MAX_WAIT_MS);
+    } else {
+      for (let i = 0; i < FRAME_COUNT; i++) load(i);
+      waitTimer = window.setTimeout(play, MAX_WAIT_MS);
+    }
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(canvas);
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(animation);
-      window.removeEventListener("resize", resize);
+      window.clearTimeout(waitTimer);
+      observer.disconnect();
+      // stop any downloads that haven't finished yet
+      for (const image of frames) if (image && !image.complete) image.src = "";
     };
   }, []);
 
@@ -179,7 +243,11 @@ export default function ScrollHero() {
           aria-hidden="true"
           className="absolute inset-0 h-full w-full scale-110 blur-2xl brightness-75"
         />
-        <canvas ref={canvasRef} className="relative h-full w-full" />
+        <canvas
+          ref={canvasRef}
+          aria-hidden="true"
+          className="relative h-full w-full"
+        />
         <HeroStory progress={progress} />
       </div>
     </section>

@@ -9,7 +9,7 @@ type Scene = {
   buttons?: boolean;
 };
 
-// Where each line appears in the film, as a share of the scroll (0 = top, 1 = end).
+// Where each line appears in the film, as a share of its length (0 = start, 1 = end).
 const scenes: Scene[] = [
   {
     start: 0,
@@ -46,18 +46,24 @@ function visibility(progress: number, scene: Scene) {
 
 export default function HeroStory({ progress }: { progress: number }) {
   return (
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent">
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent">
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
+      <h1 className="sr-only">
+        {site.name}: Airbnb co-hosting across {site.serviceArea}
+      </h1>
       <div className="relative mx-auto h-full max-w-6xl">
-        {scenes.map((scene, i) => {
+        {scenes.map((scene) => {
           const amount = visibility(progress, scene);
-          const Heading = i === 0 ? "h1" : "p";
+          const hidden = amount < 0.5;
 
           return (
             <div
               key={scene.title}
-              aria-hidden={amount < 0.5}
-            className="absolute inset-x-4 bottom-28 max-w-xl text-white [text-shadow:0_2px_16px_rgb(0_0_0/0.6)] md:bottom-16"
+              // hidden lines are taken out of the tab order and away from
+              // screen readers, so nobody lands on an invisible button
+              inert={hidden}
+              aria-hidden={hidden}
+              className="absolute inset-x-4 bottom-28 max-w-xl text-white [text-shadow:0_2px_16px_rgb(0_0_0/0.6)] md:bottom-16"
               style={{
                 opacity: amount,
                 transform: `translateY(${(1 - amount) * 24}px)`,
@@ -69,9 +75,9 @@ export default function HeroStory({ progress }: { progress: number }) {
                   {scene.eyebrow}
                 </p>
               )}
-              <Heading className="font-serif text-3xl leading-tight drop-shadow-lg md:text-5xl">
+              <p className="font-serif text-3xl leading-tight drop-shadow-lg md:text-5xl">
                 {scene.title}
-              </Heading>
+              </p>
               {scene.text && (
                 <p className="mt-3 max-w-md text-sm text-white/85 md:text-base">{scene.text}</p>
               )}
