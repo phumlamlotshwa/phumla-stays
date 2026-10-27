@@ -5,9 +5,8 @@ import HeroStory from "@/components/HeroStory";
 
 const FRAME_COUNT = 150;
 
-// How many screen-heights of scrolling the whole film takes.
-// Lower = faster, higher = slower.
-const SCROLL_SCREENS = 3;
+// How long the film takes to play from start to finish, in seconds.
+const PLAY_SECONDS = 12;
 
 // How much bigger than the screen width the film is drawn on phones.
 // 1 shows the whole width; higher zooms in and crops the sides a little.
@@ -19,24 +18,21 @@ function framePath(folder: "desktop" | "mobile", index: number) {
 }
 
 export default function ScrollHero() {
-  const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backdropRef = useRef<HTMLCanvasElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const section = sectionRef.current;
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
     const backdrop = backdropRef.current;
     const backdropContext = backdrop?.getContext("2d");
-    if (!section || !canvas || !context) return;
+    if (!canvas || !context) return;
 
     // phones get the smaller frames to save data
     const folder = window.innerWidth < 768 ? "mobile" : "desktop";
     const frames: HTMLImageElement[] = [];
     let currentFrame = 0;
-    let pending = false;
 
     // On wide screens the frame fills the canvas, cropping the edges if needed
     // (like object-fit: cover). On phones held upright that would blow up a thin
@@ -110,17 +106,18 @@ export default function ScrollHero() {
       draw(currentFrame);
     }
 
-    // works out how far through the section we are (0 to 1)
-    // and picks the matching frame
-    function onScroll() {
-      if (pending || !section) return;
-      pending = true;
+    // plays the film once, from the first frame to the last, then rests on
+    // the final scene with the buttons
+    let animation = 0;
+    function play() {
+      let startTime: number | null = null;
 
-      requestAnimationFrame(() => {
-        pending = false;
-        const box = section.getBoundingClientRect();
-        const scrollable = box.height - window.innerHeight;
-        const progress = Math.min(Math.max(-box.top / scrollable, 0), 1);
+      function step(time: number) {
+        if (startTime === null) startTime = time;
+        const progress = Math.min(
+          (time - startTime) / (PLAY_SECONDS * 1000),
+          1,
+        );
         const index = Math.round(progress * (FRAME_COUNT - 1));
         setProgress(progress);
 
@@ -128,38 +125,55 @@ export default function ScrollHero() {
           currentFrame = index;
           draw(index);
         }
-      });
+        if (progress < 1) animation = requestAnimationFrame(step);
+      }
+
+      animation = requestAnimationFrame(step);
     }
 
-    // load every frame up front; the first one draws as soon as it arrives
+    // people who've asked their phone or computer for less motion
+    // go straight to the last scene
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // load every frame first so the film doesn't stutter, showing the
+    // first frame as soon as it arrives
+    let loaded = 0;
+    function frameReady(i: number) {
+      if (i === currentFrame) draw(i);
+      loaded++;
+      if (loaded < FRAME_COUNT) return;
+
+      if (reduceMotion) {
+        currentFrame = FRAME_COUNT - 1;
+        draw(currentFrame);
+        setProgress(1);
+      } else {
+        play();
+      }
+    }
+
     for (let i = 0; i < FRAME_COUNT; i++) {
       const image = new Image();
+      image.onload = () => frameReady(i);
+      image.onerror = () => frameReady(i);
       image.src = framePath(folder, i);
-      image.onload = () => {
-        if (i === currentFrame) draw(i);
-      };
       frames.push(image);
     }
 
     resize();
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", resize);
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(animation);
       window.removeEventListener("resize", resize);
     };
   }, []);
 
   return (
-    <section
-      id="hero-film"
-      ref={sectionRef}
-      className="relative bg-charcoal"
-      style={{ height: `${SCROLL_SCREENS * 100 + 100}vh` }}
-    >
-      <div className="sticky top-0 h-svh overflow-hidden">
+    <section id="hero-film" className="relative h-svh bg-charcoal">
+      <div className="relative h-full overflow-hidden">
         <canvas
           ref={backdropRef}
           aria-hidden="true"
