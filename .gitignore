@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# hero source videos (too big for git, frames live in public/hero-frames)
+hero-video/

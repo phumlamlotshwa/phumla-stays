@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { navLinks } from "@/lib/site";
 
-export default function MobileMenu() {
-  const [open, setOpen] = useState(false);
+export default function MobileMenu({ light = false }: { light?: boolean }) {
+    const [open, setOpen] = useState(false);
 
   return (
     <div className="md:hidden">
@@ -14,7 +14,7 @@ export default function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-charcoal/15"
+        className={`flex h-10 w-10 items-center justify-center rounded-full ring-1 ${light ? "ring-white/40" : "ring-charcoal/15"}`}
       >
         <span className="text-xl leading-none">{open ? "×" : "☰"}</span>
       </button>
@@ -30,7 +30,7 @@ export default function MobileMenu() {
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-xl px-3 py-3 font-medium hover:bg-white"
+                  className="absolute inset-x-0 top-full border-b border-charcoal/10 bg-cream px-4 py-4 text-charcoal"
                 >
                   {link.label}
                 </a>
